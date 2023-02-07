@@ -1,29 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Electric Usage Calculator</title>
+  <title>EUI Calculator</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    #electricTable {
+      width: 100%;
+    }
+    #electricTable th, td {
+      text-align: center;
+      padding: 10px;
+    }
+    #electricTable th {
+      background-color: #ddd;
+    }
+    #electricTable input[type="text"] {
+      width: 100%;
+      text-align: center;
+    }
+    #addRowBtn, #calculateBtn, #printBtn {
+      margin: 10px;
+    }
+  </style>
 </head>
 <body>
-  <table id="electricTable">
-    <tr>
-      <th>Appliance Name</th>
-      <th>Watts (W)</th>
-      <th>Number of Hours of Use</th>
-      <th>Total Usage (kWh)</th>
-    </tr>
-  </table>
-  <br><br>
-  <button id="addRowBtn">Add Row</button>
-  <br><br>
-  <table>
-    <tr>
-      <th>Building Area (m^2):</th>
-      <td><input type="text" id="buildingArea"></td>
-    </tr>
-  </table>
-  <br><br>
-  <p>Energy Use Intensity per month: <span id="energyUsagePerSqm"></span></p>
+  <div class="container">
+    <h1 class="text-center">Electric Usage Calculator</h1>
+    <table id="electricTable">
+      <tr>
+        <th>Appliance Name</th>
+        <th>Watts (W)</th>
+        <th>Number of Hours of Use</th>
+        <th>Total Usage (kWh)</th>
+      </tr>
+    </table>
+    <br><br>
+    <button id="addRowBtn" class="btn btn-primary">Add Row</button>
+    <br><br>
+    <table>
+      <tr>
+        <th>Building Area (m^2):</th>
+        <td><input type="text" id="buildingArea" class="form-control"></td>
+      </tr>
+    </table>
+    <br><br>
+    <p>Energy Use Intensity per month: <span id="energyUsagePerSqm" class="label label-info"></span></p>
+    <button id="calculateBtn">Calculate</button>
+    <button id="printBtn">Print</button>
+  </div>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script>
     const electricTable = document.querySelector("#electricTable");
     const addRowBtn = document.querySelector("#addRowBtn");
@@ -75,19 +102,11 @@
       energyUsagePerSqmSpan.innerHTML = (totalUsage / buildingArea * 30).toFixed(2);
     }
     
-    const calculateBtn = document.createElement("button");
-    calculateBtn.innerHTML = "Calculate";
-    document.body.appendChild(calculateBtn);
-    
-    calculateBtn.addEventListener("click", function() {
+    document.getElementById("calculateBtn").addEventListener("click", function() {
       updateTotalUsage();
     });
     
-    const printBtn = document.createElement("button");
-    printBtn.innerHTML = "Print";
-    document.body.appendChild(printBtn);
-    
-    printBtn.addEventListener("click", function() {
+    document.getElementById("printBtn").addEventListener("click", function() {
       window.print();
     });
 
