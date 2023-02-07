@@ -1,187 +1,97 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
   <title>Electric Usage Calculator</title>
-
 </head>
-
 <body>
-
   <table id="electricTable">
-
     <tr>
-
       <th>Appliance Name</th>
-
       <th>Watts (W)</th>
-
       <th>Number of Hours of Use</th>
-
       <th>Total Usage (kWh)</th>
-
     </tr>
-    <tr>
-
-      <td><input type="text"></td>
-
-      <td><input type="text"></td>
-
-      <td><input type="text"></td>
-
-      <td>0</td>
-
-    </tr>
-
   </table>
-
   <br><br>
-
   <button id="addRowBtn">Add Row</button>
-
   <br><br>
-
   <table>
-
     <tr>
-
       <th>Building Area (m^2):</th>
-
       <td><input type="text" id="buildingArea"></td>
-
     </tr>
-
   </table>
-
   <br><br>
-
   <p>Energy Use Intensity per month: <span id="energyUsagePerSqm"></span></p>
 
   <script>
-
     const electricTable = document.querySelector("#electricTable");
-
     const addRowBtn = document.querySelector("#addRowBtn");
-
     const buildingAreaInput = document.querySelector("#buildingArea");
-
     const energyUsagePerSqmSpan = document.querySelector("#energyUsagePerSqm");
 
     addRowBtn.addEventListener("click", function() {
-
       const newRow = electricTable.insertRow();
-
       const applianceNameCell = newRow.insertCell();
-
       const wattsCell = newRow.insertCell();
-
       const numberOfAppliancesCell = newRow.insertCell();
-
       const totalUsageCell = newRow.insertCell();
 
       applianceNameCell.innerHTML = "<input type='text'>";
-
       wattsCell.innerHTML = "<input type='text'>";
-
       numberOfAppliancesCell.innerHTML = "<input type='text'>";
-
       totalUsageCell.innerHTML = 0;
 
       wattsCell.addEventListener("input", function() {
-
         const watts = parseInt(this.firstChild.value);
-
         const numberOfAppliances = parseInt(numberOfAppliancesCell.firstChild.value);
-
         totalUsageCell.innerHTML = (watts * numberOfAppliances) / 1000;
-
         updateTotalUsage();
-
       });
 
       numberOfAppliancesCell.addEventListener("input", function() {
-
         const watts = parseInt(wattsCell.firstChild.value);
-
         const numberOfAppliances = parseInt(this.firstChild.value);
-
         totalUsageCell.innerHTML = (watts * numberOfAppliances) / 1000;
-
         updateTotalUsage();
-
       });
 
       function updateTotalUsage() {
-
         let totalUsage = 0;
-
         for (let i = 1; i < electricTable.rows.length; i++) {
-
           totalUsage += parseFloat(electricTable.rows[i].cells[3].innerHTML);
-
         }
-
         const buildingArea = parseInt(buildingAreaInput.value);
-
         energyUsagePerSqmSpan.innerHTML = (totalUsage / buildingArea).toFixed(2).toFixed(2);
-
       }
-
     });
 
     function updateTotalUsage() {
-
       let totalUsage = 0;
-
       for (let i = 1; i < electricTable.rows.length; i++) {
-
         totalUsage += parseFloat(electricTable.rows[i].cells[3].innerHTML);
-
       }
-
       const buildingArea = parseInt(buildingAreaInput.value);
-
       energyUsagePerSqmSpan.innerHTML = (totalUsage / buildingArea * 30).toFixed(2);
-
     }
-
     
-
     const calculateBtn = document.createElement("button");
-
     calculateBtn.innerHTML = "Calculate";
-
     document.body.appendChild(calculateBtn);
-
     
-
     calculateBtn.addEventListener("click", function() {
-
       updateTotalUsage();
-
     });
-
     
-
     const printBtn = document.createElement("button");
-
     printBtn.innerHTML = "Print";
-
     document.body.appendChild(printBtn);
-
     
-
     printBtn.addEventListener("click", function() {
-
       window.print();
-
     });
+
 
   </script>
-
 </body>
-
 </html>
-
